@@ -1,0 +1,5 @@
+.header-division {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+}
