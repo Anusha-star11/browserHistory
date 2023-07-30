@@ -19,7 +19,11 @@ const App = props => {
           <p>{title}</p>
           <p>{domainUrl}</p>
         </div>
-        <button type="button" onClick={onClickDeleteButton}>
+        <button
+          type="button"
+          onClick={onClickDeleteButton}
+          data-testid="delete"
+        >
           <img
             src="https://assets.ccbp.in/frontend/react-js/delete-img.png"
             alt="delete"

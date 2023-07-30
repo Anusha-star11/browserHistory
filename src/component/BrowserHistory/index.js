@@ -82,6 +82,7 @@ class BrowserHistory extends Component{
     state={
         historyList:initialHistoryList,
         searchInput:'',
+        searchResults:"",
     }
 
     onDeleteItem=id=>{
@@ -92,6 +93,15 @@ class BrowserHistory extends Component{
 
     onInputSearch=e=>{
         this.setState({searchInput:e.target.value})
+    }
+
+    renderAuthList=()=>{
+        const {searchResults}=this.state
+         if(searchResults===""){
+                    return <p>Empty History View</p>
+                }
+                    <ul>{searchResults.map(each=>(<App historyList={each} key={each.id} onDeleteItem={this.onDeleteItem}/>))}
+                    </ul>
     }
     render(){
         const {searchInput}=this.state
@@ -108,8 +118,9 @@ class BrowserHistory extends Component{
                     </div>
                 </div>
                 <div>
-                    <ul>{searchResults.map(each=>(<App historyList={each} key={each.id} onDeleteItem={this.onDeleteItem}/>))}
-                    </ul>
+                {this.renderAuthList()}
+               
+                    
                 </div>
             </div>
         )
