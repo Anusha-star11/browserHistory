@@ -4,26 +4,20 @@ import './App.css'
 
 // Replace your code here
 const App = props => {
-  const {historyList, onDeleteItem} = props
-  const {timeAccessed, logoUrl, title, domainUrl, id} = historyList
+  const {item} = props
 
-  const onClickDeleteButton = () => {
-    onDeleteItem(id)
-  }
+  const {timeAccessed, logoUrl, title, domainUrl} = item
+
   return (
     <li>
-      <div className="main-container">
+      <div className="item-section">
         <p>{timeAccessed}</p>
-        <div className="middle-part">
-          <img src={logoUrl} alt="" />
+        <div className="logo-section">
+          <img src={logoUrl} alt="domain logo" />
           <p>{title}</p>
           <p>{domainUrl}</p>
         </div>
-        <button
-          type="button"
-          onClick={onClickDeleteButton}
-          data-testid="delete"
-        >
+        <button type="button" data-testid="delete">
           <img
             src="https://assets.ccbp.in/frontend/react-js/delete-img.png"
             alt="delete"
