@@ -1,6 +1,6 @@
 import {Component} from 'react'
 
-import 'App.js' from './src/App.js'
+import './index.css'
 
 const initialHistoryList = [
   {
@@ -77,55 +77,62 @@ const initialHistoryList = [
   },
 ]
 
+class BrowserHistory extends Component {
+  state = {
+    searchInput: '',
+    historyList: initialHistoryList,
+  }
 
-class BrowserHistory extends Component{
-    state={
-        historyList:initialHistoryList,
-        searchInput:'',
-        searchResults:"",
-    }
+  onDeleteListItem = id => {
+    const {historyList} = this.props
+    const updatedList = historyList.filter(each => each.id !== id)
 
-    onDeleteItem=id=>{
-       const {historyList}=this.state
-       const filteredHistoryList=historyList.filter(each=>(each.id!===id))
-       this.setState({historyList:filteredHistoryList})
-    }
+    this.setState({historyList: updatedList})
+  }
 
-    onInputSearch=e=>{
-        this.setState({searchInput:e.target.value})
-    }
+  onChangeSearchInput = e => {
+    this.setState({searchInput: e.target.value})
+  }
 
-    renderAuthList=()=>{
-        const {searchResults}=this.state
-         if(searchResults===""){
-                    return <p>Empty History View</p>
-                }
-                    <ul>{searchResults.map(each=>(<App historyList={each} key={each.id} onDeleteItem={this.onDeleteItem}/>))}
-                    </ul>
-    }
-    render(){
-        const {searchInput}=this.state
-        const{historyList}=this.state
-        const searchResults=historyList.filter(each=>each.title.toLowerCase().includes(searchInput.toLowerCase()))
-        
-        return(
-            <div>
-                <div className="header-division">
-                    <img src="https://assets.ccbp.in/frontend/react-js/history-website-logo-img.png" alt="app logo"/>
-                    <div>
-                        <img src="https://assets.ccbp.in/frontend/react-js/search-img.png" alt="search"/>
-                        <input type="search" onChange={this.onInputSearch} placeholder="Search history" value={searchInput}/>
-                    </div>
-                </div>
-                <div>
-                {this.renderAuthList()}
-               
-                    
-                </div>
-            </div>
-        )
-    }
+  render() {
+    const {searchInput} = this.state
+    const {historyList} = this.state
+    const searchResults = historyList.filter(each =>
+      each.title.toLowerCase().includes(searchInput.toLowerCase()),
+    )
+    return (
+      <div>
+        <div className="browserpage-headersection">
+          <img
+            src="https://assets.ccbp.in/frontend/react-js/history-website-logo-img.png"
+            alt="app logo"
+            className="history-logo"
+          />
+          <div>
+            <img
+              src="https://assets.ccbp.in/frontend/react-js/search-img.png"
+              alt="search"
+            />
+            <input
+              type="search"
+              value={searchInput}
+              onChange={this.onChangeSearchInput}
+            />
+          </div>
+        </div>
+        <br />
+        <ul>
+          {searchResults.map(each => (
+            <App
+              key={each.id}
+              item={each}
+              onDeleteListItem={this.onDeleteListItem}
+            />
+          ))}
+        </ul>
+      </div>
+    )
+  }
 }
 
 export default BrowserHistory
-
